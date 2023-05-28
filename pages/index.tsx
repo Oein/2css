@@ -3,6 +3,15 @@ import { Editor } from "@monaco-editor/react";
 import { useState } from "react";
 import styleToCss from "style-object-to-css-string";
 
+function randSelect() {
+  let ables = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890";
+  let out = "";
+  while(out.length < 6) {
+    out += ables[Math.floor(Math.random() * ables.length)]; 
+  }
+  return out;
+}
+
 export default function Home() {
   let [le, setLe] = useState('{\n\t"color": "white"\n}');
   let [r, setR] = useState(".selector {\n\tcolor: white;\n}");
@@ -21,19 +30,18 @@ export default function Home() {
               x = x.trim();
               if(x == "") x = "{}{}{}";
               let xtmp = x.replace(/\n/gi, "").replace(/ /gi, "").replace(/\t/gi, "");
-              console.log("tnp",xtmp);
               if(xtmp.startsWith("style={{") && xtmp.endsWith("}}")) {
                 x = x.replace("style={{", "{"); 
                 x = x.substring(0, x.length - 1);
               }
-              console.log(x);
+              let cl  =randSelect();
               let sty =
-                ".selector { \n" +
+                ".selector_" + cl + " { \n" +
                 styleToCss(JSON.parse(x))
                   .split("\n")
                   .map((x: string) => `\t${x}`)
                   .join("\n") +
-                "\n}";
+                "\n}\n\n/**\n className={styles.selector_" + cl + "}\n*/";
               setR(sty);
             } catch (e) {
               console.log(e);
