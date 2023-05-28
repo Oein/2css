@@ -18,7 +18,13 @@ export default function Home() {
             setLe(v || "");
             try {
               let x = v?.replace(/\s*(['"])?([a-z0-9A-Z_\.]+)(['"])?\s*:([^,\}]+)(,)?/g, '"$2": $4$5').replace(/(.*?),\s*(\}|])/g, "$1$2") || "{}{}{}";
+              x = x.trim();
               if(x == "") x = "{}{}{}";
+              let xtmp = x.replace(/\n/gi, "").replace(/ /gi, "").replace(/\t/gi, "");
+              if(xtmp.startsWith("style={{") && xtmp.endsWith("}}")) {
+                x = x.replace("style={{", "{"); 
+                x = x.substring(0, x.length - 1);
+              }
               let sty =
                 ".selector { \n" +
                 styleToCss(JSON.parse(x))
