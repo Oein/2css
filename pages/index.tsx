@@ -19,11 +19,9 @@ export default function Home() {
             try {
               let x = v?.replace(/\s*(['"])?([a-z0-9A-Z_\.]+)(['"])?\s*:([^,\}]+)(,)?/g, '"$2": $4$5') || "{}{}{}";
               if(x == "") x = "{}{}{}";
-              console.log(x);
-              JSON.parse(x);
               let sty =
                 ".selector { \n" +
-                styleToCss(JSON.parse(v || "{}"))
+                styleToCss(JSON.parse(x))
                   .split("\n")
                   .map((x: string) => `\t${x}`)
                   .join("\n") +
