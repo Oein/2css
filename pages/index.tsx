@@ -21,10 +21,12 @@ export default function Home() {
               x = x.trim();
               if(x == "") x = "{}{}{}";
               let xtmp = x.replace(/\n/gi, "").replace(/ /gi, "").replace(/\t/gi, "");
+              console.log("tnp",xtmp);
               if(xtmp.startsWith("style={{") && xtmp.endsWith("}}")) {
                 x = x.replace("style={{", "{"); 
                 x = x.substring(0, x.length - 1);
               }
+              console.log(x);
               let sty =
                 ".selector { \n" +
                 styleToCss(JSON.parse(x))
