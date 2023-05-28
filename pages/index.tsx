@@ -17,7 +17,7 @@ export default function Home() {
           onChange={(v) => {
             setLe(v || "");
             try {
-              let x = v?.replace(/\s*(['"])?([a-z0-9A-Z_\.]+)(['"])?\s*:([^,\}]+)(,)?/g, '"$2": $4$5') || "{}{}{}";
+              let x = v?.replace(/\s*(['"])?([a-z0-9A-Z_\.]+)(['"])?\s*:([^,\}]+)(,)?/g, '"$2": $4$5').replace(/(.*?),\s*(\}|])/g, "$1$2") || "{}{}{}";
               if(x == "") x = "{}{}{}";
               let sty =
                 ".selector { \n" +
