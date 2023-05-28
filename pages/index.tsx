@@ -17,7 +17,9 @@ export default function Home() {
           onChange={(v) => {
             setLe(v || "");
             try {
-              JSON.parse(v?.replace(/\s*(['"])?([a-z0-9A-Z_\.]+)(['"])?\s*:([^,\}]+)(,)?/g, '"$2": $4$5') || "{}{}{}");
+              let x = v?.replace(/\s*(['"])?([a-z0-9A-Z_\.]+)(['"])?\s*:([^,\}]+)(,)?/g, '"$2": $4$5') || "{}{}{}";
+              if(x == "") x = "{}{}{}";
+              JSON.parse(x);
               let sty =
                 ".selector { \n" +
                 styleToCss(JSON.parse(v || "{}"))
